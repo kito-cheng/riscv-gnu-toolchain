@@ -1,8 +1,7 @@
 [submodule "binutils"]
 	path = binutils
-	url = https://sourceware.org/git/binutils-gdb.git
-	branch = binutils-2_46-branch
-	shallow = true
+	url = https://github.com/kito-cheng/riscv-binutils-gdb.git
+	branch = kitoc/base_idx_reloc
 [submodule "gcc"]
 	path = gcc
 	url = https://github.com/gcc-mirror/gcc.git
@@ -48,9 +47,8 @@
 	shallow = true
 [submodule "llvm"]
 	path = llvm
-	url = https://github.com/llvm/llvm-project.git
-	branch = release/20.x
-	shallow = true
+	url = https://github.com/kito-cheng/llvm-project.git
+	branch = kitoc/base_idx_reloc
 [submodule "uclibc-ng"]
 	path = uclibc-ng
 	url = https://github.com/wbx-github/uclibc-ng.git
