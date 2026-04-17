@@ -414,6 +414,7 @@ stamps/build-binutils-linux: $(BINUTILS_SRCDIR) $(BINUTILS_SRC_GIT) $(PREPARATIO
 		--disable-sim \
 		--disable-libdecnumber \
 		--disable-readline \
+		--disable-gprofng \
 		$(WITH_ABI) \
 		$(WITH_ARCH) \
 		$(WITH_ISA_SPEC)
@@ -438,6 +439,7 @@ stamps/build-gdb-linux: $(GDB_SRCDIR) $(GDB_SRC_GIT) $(PREPARATION_STAMP)
 		--enable-gdb \
 		--disable-gas \
 		--disable-binutils \
+		--disable-gprofng \
 		--disable-ld \
 		--disable-gold \
 		--disable-gprof
@@ -649,6 +651,7 @@ stamps/build-binutils-newlib: $(BINUTILS_SRCDIR) $(BINUTILS_SRC_GIT) $(PREPARATI
 		--disable-sim \
 		--disable-libdecnumber \
 		--disable-readline \
+		--disable-gprofng \
 		$(WITH_ABI) \
 		$(WITH_ARCH) \
 		$(WITH_ISA_SPEC)
@@ -670,6 +673,7 @@ stamps/build-gdb-newlib: $(GDB_SRCDIR) $(GDB_SRC_GIT) $(PREPARATION_STAMP)
 		--enable-gdb \
 		--disable-gas \
 		--disable-binutils \
+		--disable-gprofng \
 		--disable-ld \
 		--disable-gold \
 		--disable-gprof
@@ -1184,7 +1188,8 @@ stamps/build-llvm-linux: $(LLVM_SRCDIR) $(LLVM_SRC_GIT) $(BINUTILS_SRCDIR) $(BIN
 	# Build shared/static OpenMP libraries on RV64.
 	if test $(XLEN) -eq 64; then \
 	    mkdir $(notdir $@)/openmp-shared; \
-	    cmake -S$(LLVM_SRCDIR)/openmp \
+	    cmake -S$(LLVM_SRCDIR)/runtimes \
+		-DLLVM_ENABLE_RUNTIMES=openmp \
 	        -B$(notdir $@)/openmp-shared \
 	        -DCMAKE_INSTALL_PREFIX=$(SYSROOT) \
 	        -DCMAKE_C_COMPILER=$(INSTALL_DIR)/bin/clang \
@@ -1203,7 +1208,8 @@ stamps/build-llvm-linux: $(LLVM_SRCDIR) $(LLVM_SRC_GIT) $(BINUTILS_SRCDIR) $(BIN
 	    $(MAKE) -C $(notdir $@)/openmp-shared; \
 	    $(MAKE) -C $(notdir $@)/openmp-shared install; \
 	    mkdir $(notdir $@)/openmp-static; \
-	    cmake -S$(LLVM_SRCDIR)/openmp \
+	    cmake -S$(LLVM_SRCDIR)/runtimes \
+		-DLLVM_ENABLE_RUNTIMES=openmp \
 	        -B$(notdir $@)/openmp-static \
 	        -DCMAKE_INSTALL_PREFIX=$(SYSROOT) \
 	        -DCMAKE_C_COMPILER=$(INSTALL_DIR)/bin/clang \
